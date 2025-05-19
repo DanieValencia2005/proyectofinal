@@ -24,6 +24,8 @@
             </intent-filter>
         </activity>
         <activity android:name=".HomeActivity" />
+        <activity android:name=".BuyActivity" />
+        <activity android:name=".SellActivity" />
     </application>
 
 </manifest>

@@ -12,6 +12,9 @@ import androidx.compose.ui.Modifier
 import androidx.compose.ui.unit.dp
 import androidx.compose.ui.unit.sp
 import com.ud.proyecto_final.ui.theme.Proyecto_finalTheme
+import android.content.Intent
+import androidx.compose.ui.platform.LocalContext
+
 
 
 
@@ -31,6 +34,8 @@ class HomeActivity : ComponentActivity() {
 
 @Composable
 fun HomeScreen(modifier: Modifier = Modifier) {
+    val context = LocalContext.current
+
     Column(
         modifier = modifier
             .fillMaxSize()
@@ -44,7 +49,10 @@ fun HomeScreen(modifier: Modifier = Modifier) {
         )
 
         Button(
-            onClick = { /* Acción comprar */ },
+            onClick = {
+                val intent = Intent(context, BuyActivity::class.java)
+                context.startActivity(intent)
+            },
             modifier = Modifier
                 .fillMaxWidth()
                 .padding(bottom = 16.dp)
@@ -53,7 +61,10 @@ fun HomeScreen(modifier: Modifier = Modifier) {
         }
 
         Button(
-            onClick = { /* Acción vender */ },
+            onClick = {
+                val intent = Intent(context, SellActivity::class.java)
+                context.startActivity(intent)
+            },
             modifier = Modifier
                 .fillMaxWidth()
                 .padding(bottom = 16.dp)
@@ -69,3 +80,4 @@ fun HomeScreen(modifier: Modifier = Modifier) {
         }
     }
 }
+
