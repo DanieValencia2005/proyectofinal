@@ -1,22 +1,19 @@
 package com.ud.proyecto_final
 
-import android.content.Intent
 import android.os.Bundle
+import android.widget.Toast
 import androidx.activity.ComponentActivity
 import androidx.activity.compose.setContent
 import androidx.activity.enableEdgeToEdge
 import androidx.compose.foundation.layout.Arrangement
 import androidx.compose.foundation.layout.Column
-import androidx.compose.foundation.layout.Spacer
 import androidx.compose.foundation.layout.fillMaxSize
 import androidx.compose.foundation.layout.fillMaxWidth
-import androidx.compose.foundation.layout.height
 import androidx.compose.foundation.layout.padding
 import androidx.compose.material3.Button
 import androidx.compose.material3.OutlinedTextField
 import androidx.compose.material3.Scaffold
 import androidx.compose.material3.Text
-import androidx.compose.material3.TextButton
 import androidx.compose.runtime.Composable
 import androidx.compose.runtime.getValue
 import androidx.compose.runtime.mutableStateOf
@@ -31,14 +28,14 @@ import androidx.compose.ui.unit.sp
 import com.ud.proyecto_final.ui.theme.Proyecto_finalTheme
 import kotlinx.coroutines.launch
 
-class MainActivity : ComponentActivity() {
+class RegistroActivity : ComponentActivity() {
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         enableEdgeToEdge()
         setContent {
             Proyecto_finalTheme {
                 Scaffold(modifier = Modifier.fillMaxSize()) { innerPadding ->
-                    LoginScreen(modifier = Modifier.padding(innerPadding))
+                    RegistroScreen(modifier = Modifier.padding(innerPadding))
                 }
             }
         }
@@ -46,7 +43,7 @@ class MainActivity : ComponentActivity() {
 }
 
 @Composable
-fun LoginScreen(modifier: Modifier = Modifier) {
+fun RegistroScreen(modifier: Modifier = Modifier) {
     var email by remember { mutableStateOf("") }
     var password by remember { mutableStateOf("") }
     val context = LocalContext.current
@@ -59,11 +56,7 @@ fun LoginScreen(modifier: Modifier = Modifier) {
             .padding(32.dp),
         verticalArrangement = Arrangement.Center
     ) {
-        Text(
-            text = "Iniciar Sesión",
-            fontSize = 24.sp,
-            modifier = Modifier.padding(bottom = 32.dp)
-        )
+        Text("Registro de Usuario", fontSize = 24.sp, modifier = Modifier.padding(bottom = 24.dp))
 
         OutlinedTextField(
             value = email,
@@ -81,36 +74,19 @@ fun LoginScreen(modifier: Modifier = Modifier) {
             visualTransformation = PasswordVisualTransformation(),
             modifier = Modifier
                 .fillMaxWidth()
-                .padding(bottom = 16.dp)
+                .padding(bottom = 24.dp)
         )
 
         Button(
             onClick = {
                 scope.launch {
-                    val user = db.login(email, password)
-                    if (user != null) {
-                        val intent = Intent(context, HomeActivity::class.java)
-                        context.startActivity(intent)
-                    } else {
-                        // Mostrar error o toast
-                    }
+                    db.insertUser(User(email = email, password = password))
+                    Toast.makeText(context, "Usuario registrado", Toast.LENGTH_SHORT).show()
                 }
             },
             modifier = Modifier.fillMaxWidth()
         ) {
-            Text("INICIAR SESIÓN")
-        }
-
-        Spacer(modifier = Modifier.height(12.dp))
-
-        TextButton(
-            onClick = {
-                val intent = Intent(context, RegistroActivity::class.java)
-                context.startActivity(intent)
-            },
-            modifier = Modifier.fillMaxWidth()
-        ) {
-            Text("¿No tienes cuenta? REGISTRARSE")
+            Text("REGISTRARSE")
         }
     }
 }

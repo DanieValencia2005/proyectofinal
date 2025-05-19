@@ -4,17 +4,45 @@ import android.os.Bundle
 import androidx.activity.ComponentActivity
 import androidx.activity.compose.setContent
 import androidx.activity.enableEdgeToEdge
-import androidx.compose.foundation.layout.*
-import androidx.compose.material3.*
-import androidx.compose.runtime.*
+import androidx.compose.foundation.layout.Arrangement
+import androidx.compose.foundation.layout.Column
+import androidx.compose.foundation.layout.Spacer
+import androidx.compose.foundation.layout.fillMaxSize
+import androidx.compose.foundation.layout.fillMaxWidth
+import androidx.compose.foundation.layout.height
+import androidx.compose.foundation.layout.padding
+import androidx.compose.foundation.text.KeyboardOptions
+import androidx.compose.material3.Button
+import androidx.compose.material3.OutlinedTextField
+import androidx.compose.material3.Scaffold
+import androidx.compose.material3.Text
+import androidx.compose.runtime.Composable
+import androidx.compose.runtime.getValue
+import androidx.compose.runtime.mutableStateOf
+import androidx.compose.runtime.remember
+import androidx.compose.runtime.rememberCoroutineScope
+import androidx.compose.runtime.setValue
 import androidx.compose.ui.Modifier
+import androidx.compose.ui.platform.LocalContext
 import androidx.compose.ui.text.input.KeyboardType
 import androidx.compose.ui.unit.dp
 import androidx.compose.ui.unit.sp
+import androidx.room.Entity
+import androidx.room.PrimaryKey
 import com.ud.proyecto_final.ui.theme.Proyecto_finalTheme
+import kotlinx.coroutines.launch
 
-
-
+@Entity(tableName = "ventas")
+data class SellEntity(
+    @PrimaryKey(autoGenerate = true) val id: Int = 0,
+    val titulo: String,
+    val autor: String,
+    val editorial: String,
+    val año: String,
+    val precio: String,
+    val condicion: String,
+    val notas: String
+)
 
 class SellActivity : ComponentActivity() {
     override fun onCreate(savedInstanceState: Bundle?) {
@@ -32,6 +60,10 @@ class SellActivity : ComponentActivity() {
 
 @Composable
 fun SellScreen(modifier: Modifier = Modifier) {
+    val context = LocalContext.current
+    val scope = rememberCoroutineScope()
+    val db = remember { AppDatabase.getDatabase(context).sellDao() }
+
     var bookTitle by remember { mutableStateOf("") }
     var author by remember { mutableStateOf("") }
     var publisher by remember { mutableStateOf("") }
@@ -46,7 +78,11 @@ fun SellScreen(modifier: Modifier = Modifier) {
             .padding(24.dp),
         verticalArrangement = Arrangement.Top
     ) {
-        Text(text = "Formulario de Venta de Libro", fontSize = 28.sp, modifier = Modifier.padding(bottom = 24.dp))
+        Text(
+            text = "Formulario de Venta de Libro",
+            fontSize = 28.sp,
+            modifier = Modifier.padding(bottom = 24.dp)
+        )
 
         OutlinedTextField(
             value = bookTitle,
@@ -95,7 +131,8 @@ fun SellScreen(modifier: Modifier = Modifier) {
             modifier = Modifier
                 .fillMaxWidth()
                 .height(56.dp)
-                .padding(bottom = 12.dp)
+                .padding(bottom = 12.dp),
+            keyboardOptions = KeyboardOptions(keyboardType = KeyboardType.Number)
         )
 
         OutlinedTextField(
@@ -117,8 +154,40 @@ fun SellScreen(modifier: Modifier = Modifier) {
                 .height(120.dp)
                 .padding(bottom = 12.dp)
         )
+
+        Spacer(modifier = Modifier.height(24.dp))
+
+        Button(
+            onClick = {
+                scope.launch {
+                    db.insertarVenta(
+                        SellEntity(
+                            titulo = bookTitle,
+                            autor = author,
+                            editorial = publisher,
+                            año = year,
+                            precio = price,
+                            condicion = condition,
+                            notas = notes
+                        )
+                    )
+                    // Limpiar campos después de guardar
+                    bookTitle = ""
+                    author = ""
+                    publisher = ""
+                    year = ""
+                    price = ""
+                    condition = ""
+                    notes = ""
+                }
+            },
+            modifier = Modifier.fillMaxWidth()
+        ) {
+            Text("Guardar venta")
+        }
     }
 }
+
 
 
 
