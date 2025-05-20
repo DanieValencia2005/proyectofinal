@@ -1,5 +1,6 @@
 package com.ud.proyecto_final
 
+import android.content.Intent
 import android.os.Bundle
 import android.widget.Toast
 import androidx.activity.ComponentActivity
@@ -35,7 +36,10 @@ class RegistroActivity : ComponentActivity() {
         setContent {
             Proyecto_finalTheme {
                 Scaffold(modifier = Modifier.fillMaxSize()) { innerPadding ->
-                    RegistroScreen(modifier = Modifier.padding(innerPadding))
+                    RegistroScreen(modifier = Modifier.padding(innerPadding)) {
+                        // callback cuando el registro sea exitoso
+                        finish() // cerramos RegistroActivity
+                    }
                 }
             }
         }
@@ -43,7 +47,7 @@ class RegistroActivity : ComponentActivity() {
 }
 
 @Composable
-fun RegistroScreen(modifier: Modifier = Modifier) {
+fun RegistroScreen(modifier: Modifier = Modifier, onRegistered: () -> Unit) {
     var email by remember { mutableStateOf("") }
     var password by remember { mutableStateOf("") }
     val context = LocalContext.current
@@ -82,6 +86,9 @@ fun RegistroScreen(modifier: Modifier = Modifier) {
                 scope.launch {
                     db.insertUser(User(email = email, password = password))
                     Toast.makeText(context, "Usuario registrado", Toast.LENGTH_SHORT).show()
+                    // Después de registrar, redirigimos al login
+                    context.startActivity(Intent(context, MainActivity::class.java))
+                    onRegistered()
                 }
             },
             modifier = Modifier.fillMaxWidth()
