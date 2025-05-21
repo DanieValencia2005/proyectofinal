@@ -90,7 +90,7 @@ fun SellScreen(modifier: Modifier = Modifier) {
             label = { Text("Título del libro") },
             modifier = Modifier
                 .fillMaxWidth()
-                .height(56.dp)
+                .height(70.dp)
                 .padding(bottom = 12.dp)
         )
 
@@ -100,7 +100,7 @@ fun SellScreen(modifier: Modifier = Modifier) {
             label = { Text("Autor") },
             modifier = Modifier
                 .fillMaxWidth()
-                .height(56.dp)
+                .height(70.dp)
                 .padding(bottom = 12.dp)
         )
 
@@ -110,7 +110,7 @@ fun SellScreen(modifier: Modifier = Modifier) {
             label = { Text("Editorial") },
             modifier = Modifier
                 .fillMaxWidth()
-                .height(56.dp)
+                .height(70.dp)
                 .padding(bottom = 12.dp)
         )
 
@@ -120,7 +120,7 @@ fun SellScreen(modifier: Modifier = Modifier) {
             label = { Text("Año de publicación") },
             modifier = Modifier
                 .fillMaxWidth()
-                .height(56.dp)
+                .height(70.dp)
                 .padding(bottom = 12.dp)
         )
 
@@ -130,7 +130,7 @@ fun SellScreen(modifier: Modifier = Modifier) {
             label = { Text("Precio") },
             modifier = Modifier
                 .fillMaxWidth()
-                .height(56.dp)
+                .height(70.dp)
                 .padding(bottom = 12.dp),
             keyboardOptions = KeyboardOptions(keyboardType = KeyboardType.Number)
         )
@@ -141,7 +141,7 @@ fun SellScreen(modifier: Modifier = Modifier) {
             label = { Text("Condición del libro") },
             modifier = Modifier
                 .fillMaxWidth()
-                .height(56.dp)
+                .height(70.dp)
                 .padding(bottom = 12.dp)
         )
 

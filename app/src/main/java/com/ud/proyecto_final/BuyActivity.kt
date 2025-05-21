@@ -60,7 +60,7 @@ fun BuyScreen(modifier: Modifier = Modifier) {
             label = { Text("Título del libro") },
             modifier = Modifier
                 .fillMaxWidth()
-                .height(56.dp)
+                .height(70.dp)
                 .padding(bottom = 12.dp)
         )
 
@@ -70,7 +70,7 @@ fun BuyScreen(modifier: Modifier = Modifier) {
             label = { Text("Autor") },
             modifier = Modifier
                 .fillMaxWidth()
-                .height(56.dp)
+                .height(70.dp)
                 .padding(bottom = 12.dp)
         )
 
@@ -80,7 +80,7 @@ fun BuyScreen(modifier: Modifier = Modifier) {
             label = { Text("Editorial") },
             modifier = Modifier
                 .fillMaxWidth()
-                .height(56.dp)
+                .height(70.dp)
                 .padding(bottom = 12.dp)
         )
 
@@ -90,7 +90,7 @@ fun BuyScreen(modifier: Modifier = Modifier) {
             label = { Text("Año de publicación") },
             modifier = Modifier
                 .fillMaxWidth()
-                .height(56.dp)
+                .height(70.dp)
                 .padding(bottom = 12.dp)
         )
 
@@ -100,7 +100,7 @@ fun BuyScreen(modifier: Modifier = Modifier) {
             label = { Text("Cantidad") },
             modifier = Modifier
                 .fillMaxWidth()
-                .height(56.dp)
+                .height(70.dp)
                 .padding(bottom = 12.dp)
         )
 
